@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { bebas, roboflex, roboflexlight } from "../fonts";
+import { bebas, roboflexlight } from "../fonts";
 
 const LoginButton = () => {
   const loginModal = useRef(null);

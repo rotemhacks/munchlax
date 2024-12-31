@@ -1,5 +1,5 @@
 import "~/styles/globals.css";
-import { bebas, roboflex, roboflexlight } from "./fonts";
+import { roboflexlight } from "./fonts";
 
 import { type Metadata } from "next";
 
@@ -15,10 +15,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${bebas.className} ${roboflex.className} ${roboflexlight.className}`}
-    >
+    <html lang="en" className={`${roboflexlight.className}`}>
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
