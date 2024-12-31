@@ -14,18 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
-
 // Necessary for Next auth
 model Account {
     id                       String  @id @default(cuid())
@@ -56,13 +44,14 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
     email         String?   @unique
     emailVerified DateTime?
-    image         String?
+    dateCreated   DateTime
+    profile       Profile?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    entries       DailyEntry[] // TODO: on User or Profile?
+    active        Boolean @default(true)
 }
 
 model VerificationToken {
@@ -71,4 +60,67 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Profile {
+    id            String    @id @default(cuid())
+    userId        String    @unique
+    user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    name          String?
+    dateOfBirth   DateTime?
+    height        Int? // in cm
+    image         String?
+    friends       String[] // friend user ids
+    msgSent       Messages[] @relation(name: "MessagesSent")
+    msgReceived   Messages[] @relation(name: "MessagesReceived")
+}
+
+model Messages {
+    id             String @id @default(cuid())
+    senderId       String
+    sender         Profile @relation(name: "MessagesSent", fields: [senderId], references: [id])
+    receiverId     String
+    receiver       Profile @relation(name: "MessagesReceived", fields: [receiverId], references: [id], onDelete: Cascade)
+    dateCreated    DateTime
+    content        String
+    read           Boolean @default(false)
+    deleted        Boolean @default(false)
+}
+
+model DailyEntry {
+    id          String @id @default(cuid())
+    userId      String
+    user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    foods       FoodEntry[]
+    notes       String
+}
+
+model FoodEntry {
+    id          String @id @default(cuid())
+    dailyId     String
+    dateCreated DateTime
+    meal        String? // could also have free entries
+    foodId      String
+    serving     Float
+    servingUnit String // should probably be an enum?
+
+    daily       DailyEntry @relation(fields: [dailyId], references: [id], onDelete: Cascade)
+}
+
+model WeightRecords {
+    id          String @id @default(cuid())
+    userId      String
+    dateCreated DateTime
+    weight      Float //in kg
+}
+
+model CustomFood {
+    id              String @id @default(cuid())
+    name            String
+    manufacturer    String?
+    calories        Int? // per 100gr (or serving if we must)
+    protein         Int?
+    fat             Int?
+    carbs           Int?
+    sodium          Int?
 }
