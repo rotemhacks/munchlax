@@ -3,12 +3,12 @@ import { useRef } from "react";
 import { bebas, roboflexlight } from "../fonts";
 
 const LoginButton = () => {
-  const loginModal = useRef(null);
+  const loginModal = useRef<HTMLDialogElement>(null);
 
   const openLoginModal = () => {
     if (!loginModal?.current) return;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    (loginModal.current as HTMLFormElement).showModal();
+    loginModal.current.showModal();
   };
 
   return (
