@@ -12,7 +12,7 @@ type Props = {
 
 const DashTable = ({ data }: Props) => {
   return (
-    <div className="mt-10 lg:mt-20 lg:w-3/4">
+    <div className="lg:w-3/4">
       <div className="flex flex-row gap-2">
         <button className="btn btn-ghost rounded-full">
           {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}

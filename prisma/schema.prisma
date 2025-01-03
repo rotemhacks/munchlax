@@ -92,6 +92,7 @@ model DailyEntry {
     userId      String
     user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
     foods       FoodEntry[]
+    water       Int
     notes       String
 }
 

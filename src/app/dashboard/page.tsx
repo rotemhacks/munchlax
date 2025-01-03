@@ -1,5 +1,6 @@
 import DashHeader from "../_components/DashHeader";
 import DashTable from "../_components/DashTable";
+import WaterTracker from "../_components/WaterTracker";
 
 const mockdata = {
   breakfast: [
@@ -33,7 +34,11 @@ const Dashboard = () => {
   return (
     <div>
       <DashHeader />
-      <DashTable data={mockdata} />
+      <div className="mt-10 flex flex-col items-center lg:mt-20 lg:flex-row lg:items-start lg:gap-3">
+        <DashTable data={mockdata} />
+        <div className="divider mx-auto w-3/4 lg:hidden" />
+        <WaterTracker />
+      </div>
     </div>
   );
 };

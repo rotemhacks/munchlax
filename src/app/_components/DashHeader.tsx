@@ -1,8 +1,8 @@
-import React from "react";
 import { bebas } from "../fonts";
 import dayjs from "dayjs";
 import defaultav from "../../../public/images/defaultav.svg";
 import Image from "next/image";
+import CalorieDash from "./CalorieDash";
 
 const DashHeader = () => {
   return (
@@ -33,14 +33,7 @@ const DashHeader = () => {
         </p>
       </div>
       <div className="hidden lg:flex lg:flex-grow" />
-      <div className="flex w-3/4 flex-col items-center justify-center rounded-3xl border border-primary p-5 text-center lg:w-1/4">
-        <p>Total calories eaten today:</p>
-        <p
-          className={`${bebas.className} mt-5 text-5xl text-primary lg:mt-0 lg:text-7xl`}
-        >
-          1541
-        </p>
-      </div>
+      <CalorieDash />
     </section>
   );
 };
