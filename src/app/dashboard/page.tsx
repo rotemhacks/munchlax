@@ -1,5 +1,6 @@
 import DashHeader from "../_components/DashHeader";
 import DashTable from "../_components/DashTable";
+import NoteEditor from "../_components/NoteEditor";
 import WaterTracker from "../_components/WaterTracker";
 
 const mockdata = {
@@ -37,7 +38,10 @@ const Dashboard = () => {
       <div className="mt-10 flex flex-col items-center lg:mt-20 lg:flex-row lg:items-start lg:gap-3">
         <DashTable data={mockdata} />
         <div className="divider mx-auto w-3/4 lg:hidden" />
-        <WaterTracker />
+        <div className="flex w-3/4 flex-grow flex-col gap-3 lg:w-auto">
+          <WaterTracker />
+          <NoteEditor />
+        </div>
       </div>
     </div>
   );

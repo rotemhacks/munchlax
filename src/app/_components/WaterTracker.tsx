@@ -30,17 +30,14 @@ const WaterTracker = () => {
             key={"water" + i}
           />
         ) : (
-          <button
-            className="btn-ghost w-max rounded-xl"
+          <Image
+            /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+            src={watericon}
+            alt="1 glass of water, click on it to remove"
             key={"water" + i}
+            className="cursor-pointer"
             onClick={handleRemoveWater}
-          >
-            <Image
-              /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
-              src={watericon}
-              alt="1 glass of water, click on it to remove"
-            />
-          </button>
+          />
         );
       },
     );
@@ -48,16 +45,20 @@ const WaterTracker = () => {
   }, []);
 
   return (
-    <div className="mb-3 w-3/4 lg:mt-3 lg:w-1/4">
-      <h3 className={`${bebas.className} mb-3 text-xl text-primary`}>
+    <div className="mb-3 w-4/5 lg:mt-3 lg:w-1/4">
+      <h3 className={`${bebas.className} mb-3 w-max text-xl text-primary`}>
         Water Tracker:
       </h3>
       <div className="flex flex-row gap-3">
         {getNumberOfGlasses()}
-        <button className="btn-ghost w-max rounded-xl" onClick={handleAddWater}>
-          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
-          <Image src={wateradd} alt="1 glass of water, click to add one more" />
-        </button>
+
+        <Image
+          /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */
+          src={wateradd}
+          alt="1 glass of water, click to add one more"
+          onClick={handleAddWater}
+          className="cursor-pointer"
+        />
       </div>
     </div>
   );

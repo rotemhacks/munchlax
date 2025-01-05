@@ -16,6 +16,8 @@ export default function DashboardLayout({
     <main className="flex-column ml-auto mr-auto max-w-7xl content-center">
       <NavBar />
       {children}
+      <div className="divider mx-auto w-4/5 lg:w-full" />
+      <p>Footer goes here</p>
     </main>
   );
 }
