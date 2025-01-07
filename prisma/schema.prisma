@@ -50,7 +50,6 @@ model User {
     profile       Profile?
     accounts      Account[]
     sessions      Session[]
-    entries       DailyEntry[] // TODO: on User or Profile?
     active        Boolean @default(true)
 }
 
@@ -73,6 +72,7 @@ model Profile {
     friends       String[] // friend user ids
     msgSent       Messages[] @relation(name: "MessagesSent")
     msgReceived   Messages[] @relation(name: "MessagesReceived")
+    entries       DailyEntry[]
 }
 
 model Messages {
@@ -89,23 +89,23 @@ model Messages {
 
 model DailyEntry {
     id          String @id @default(cuid())
-    userId      String
-    user        User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    profileId   String
+    profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
     foods       FoodEntry[]
     water       Int
     notes       String
+
 }
 
 model FoodEntry {
     id          String @id @default(cuid())
     dailyId     String
+    daily       DailyEntry @relation(fields: [dailyId], references: [id], onDelete: Cascade)
     dateCreated DateTime
     meal        String? // could also have free entries
     foodId      String
     serving     Float
     servingUnit String // should probably be an enum?
-
-    daily       DailyEntry @relation(fields: [dailyId], references: [id], onDelete: Cascade)
 }
 
 model WeightRecords {
