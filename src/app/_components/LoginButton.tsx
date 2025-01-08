@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
 import { bebas, roboflexlight } from "../fonts";
-import { signIn } from "~/server/auth";
 import { signInWithServer } from "~/helpers/signInFunctions";
 
 const LoginButton = () => {

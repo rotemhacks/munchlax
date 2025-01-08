@@ -1,8 +1,13 @@
 import Image from "next/image";
 import { bebas } from "../fonts";
 import defaultav from "../../../public/images/defaultav.svg";
+import type { User } from "../types";
 
-const NavBar = () => {
+type Props = {
+  user: User | undefined;
+};
+
+const NavBar = ({ user }: Props) => {
   return (
     <div className="navbar">
       <h1
@@ -20,7 +25,7 @@ const NavBar = () => {
             <div className="w-10 rounded-full">
               <Image
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                src={defaultav}
+                src={user?.image ? user.image : defaultav}
                 width="40"
                 height="40"
                 alt="Default avatar"

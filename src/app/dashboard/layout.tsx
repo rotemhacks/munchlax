@@ -1,3 +1,4 @@
+import { auth } from "~/server/auth";
 import NavBar from "../_components/NavBar";
 
 import { type Metadata } from "next";
@@ -9,12 +10,14 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const session = await auth();
+
   return (
     <main className="flex-column ml-auto mr-auto max-w-7xl content-center">
-      <NavBar />
+      <NavBar user={session?.user} />
       {children}
       <div className="divider mx-auto w-4/5 lg:w-full" />
       <p>Footer goes here</p>
