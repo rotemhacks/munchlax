@@ -1,13 +1,13 @@
 import Image from "next/image";
 import { bebas } from "../fonts";
 import defaultav from "../../../public/images/defaultav.svg";
-import type { User } from "../types";
+import type { Profile, User } from "../types";
 
 type Props = {
-  user: User | undefined;
+  user?: User;
 };
 
-const NavBar = ({ user }: Props) => {
+const NavBar = async ({ user }: Props) => {
   return (
     <div className="navbar">
       <h1

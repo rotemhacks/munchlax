@@ -4,6 +4,7 @@ import DashTable from "../_components/DashTable";
 import NoteEditor from "../_components/NoteEditor";
 import WaterTracker from "../_components/WaterTracker";
 import { redirect } from "next/navigation";
+import { api } from "~/trpc/server";
 
 const mockdata = {
   breakfast: [
@@ -35,7 +36,6 @@ const mockdata = {
 
 const Dashboard = async () => {
   const session = await auth();
-
   if (!session?.user) {
     // void api.post.getLatest.prefetch(); TODO: See how that works for prefetching entries
     redirect("/");

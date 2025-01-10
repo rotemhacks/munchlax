@@ -13,6 +13,15 @@ export default async function Home() {
 
   if (session?.user) {
     // void api.post.getLatest.prefetch(); TODO: See how that works for prefetching entries
+    let profile = await api.profile.fetch({
+      userId: session.user.id,
+    });
+    // fetch profile info, if no profile, make one right after login
+    if (!profile) {
+      profile = await api.profile.create({
+        userId: session.user.id,
+      });
+    }
     redirect("/dashboard");
   }
   return (

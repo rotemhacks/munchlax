@@ -15,3 +15,11 @@ export type User = {
   email?: string | null;
   image?: string | null;
 };
+
+export type Profile = {
+  id: string;
+  userId: string;
+  dateOfBirth?: Date | null;
+  height?: number | null; // in cm
+  friends: string[]; // friend user ids
+};

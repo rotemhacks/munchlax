@@ -3,13 +3,14 @@ import dayjs from "dayjs";
 import defaultav from "../../../public/images/defaultav.svg";
 import Image from "next/image";
 import CalorieDash from "./CalorieDash";
-import type { User } from "../types";
+import type { User, Profile } from "../types";
 
 type Props = {
-  user: User | undefined;
+  user?: User;
+  profile?: Profile;
 };
 
-const DashHeader = ({ user }: Props) => {
+const DashHeader = ({ user, profile }: Props) => {
   return (
     <section className="mt-10 flex w-full flex-col items-center lg:flex-row lg:items-start lg:gap-10">
       <div className="avatar">
@@ -43,7 +44,8 @@ const DashHeader = ({ user }: Props) => {
         </p>
       </div>
       <div className="hidden lg:flex lg:flex-grow" />
-      <CalorieDash />
+      {/* TODO: Pass daily entry calories only */}
+      <CalorieDash profileId={profile?.id} />
     </section>
   );
 };
