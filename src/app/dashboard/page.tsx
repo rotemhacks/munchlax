@@ -42,7 +42,7 @@ const Dashboard = async () => {
   }
 
   return (
-    <div>
+    <div className="max-w-screen-xl">
       <DashHeader user={session?.user} />
       <div className="mt-10 flex flex-col items-center lg:mt-20 lg:flex-row lg:items-start lg:gap-3">
         <DashTable data={mockdata} />

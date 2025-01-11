@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   const session = await auth();
 
   return (
-    <main className="flex-column ml-auto mr-auto max-w-7xl content-center">
+    <main className="flex-column ml-auto mr-auto w-screen max-w-7xl content-center">
       <NavBar user={session?.user} />
       {children}
       <div className="divider mx-auto w-4/5 lg:w-full" />

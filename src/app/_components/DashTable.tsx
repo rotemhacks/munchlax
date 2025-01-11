@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import backicon from "../../../public/images/backicon.svg";
 import addicon from "../../../public/images/addicon.svg";
 import Image from "next/image";
+import AddFood from "./AddFood";
 
 type Props = {
   data: { breakfast: Food[]; lunch: Food[]; dinner: Food[]; snacks: Food[] };
@@ -91,34 +92,7 @@ const DashTable = ({ data }: Props) => {
             ))}
           </tbody>
         </table>
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
-            <Image
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-              src={addicon}
-              alt="go back one day"
-              width="25"
-              height="25"
-            />
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-          >
-            <li>
-              <a>Breakfast</a>
-            </li>
-            <li>
-              <a>Lunch</a>
-            </li>
-            <li>
-              <a>Dinner</a>
-            </li>
-            <li>
-              <a>Snacks</a>
-            </li>
-          </ul>
-        </div>
+        <AddFood />
       </div>
     </div>
   );
