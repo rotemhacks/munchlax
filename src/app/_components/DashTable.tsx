@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import backicon from "../../../public/images/backicon.svg";
 import addicon from "../../../public/images/addicon.svg";
 import Image from "next/image";
-import AddFood from "./AddFood";
+import Link from "next/link";
 
 type Props = {
   data: { breakfast: Food[]; lunch: Food[]; dinner: Food[]; snacks: Food[] };
@@ -92,7 +92,34 @@ const DashTable = ({ data }: Props) => {
             ))}
           </tbody>
         </table>
-        <AddFood />
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+            <Image
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              src={addicon}
+              alt="add a food"
+              width="25"
+              height="25"
+            />
+          </div>
+          <ul
+            tabIndex={0}
+            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+          >
+            <li>
+              <Link href="dashboard/add-food/breakfast">Breakfast</Link>
+            </li>
+            <li>
+              <Link href="dashboard/add-food/lunch">Lunch</Link>
+            </li>
+            <li>
+              <Link href="dashboard/add-food/dinner">Dinner</Link>
+            </li>
+            <li>
+              <Link href="dashboard/add-food/snacks">Snacks</Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

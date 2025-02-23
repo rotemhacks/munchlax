@@ -27,7 +27,7 @@ const DashHeader = ({ user, profile }: Props) => {
       <div className="flex flex-col content-between">
         <div>
           <h2
-            className={`${bebas.className} mt-5 text-5xl lg:mt-0 lg:text-7xl`}
+            className={`${bebas.className} mt-5 text-center text-5xl lg:mt-0 lg:text-start lg:text-7xl`}
           >
             <span className="text-primary">HELLO, </span>
             <span>{user?.name ? user.name : "USERNAME"}</span>
