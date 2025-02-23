@@ -2,23 +2,32 @@
 
 import Image from "next/image";
 import addicon from "../../../public/images/addicon.svg";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { bebas } from "../fonts";
 import debounce from "~/helpers/debounce";
 import type { BasicFoodInfo } from "../types";
+import { api } from "~/trpc/react";
 
 type Props = {
   meal: string;
-  handleSearch: (searchString?: string) => void;
 };
 
-const AddFood = ({ meal, handleSearch }: Props) => {
+const AddFood = ({ meal }: Props) => {
   const foodSearchInput = useRef<HTMLInputElement>(null);
-
-  const handleTyping = debounce(
-    () => handleSearch(foodSearchInput.current?.value),
-    1000,
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchQuery = api.foodSearch.searchByName.useQuery(
+    {
+      searchString: searchTerm,
+    },
+    {
+      enabled: searchTerm.length >= 3,
+    },
   );
+
+  const handleTyping = debounce(() => {
+    if (foodSearchInput.current) setSearchTerm(foodSearchInput.current.value);
+    console.log(searchTerm);
+  }, 500);
 
   return (
     <div className="mt-10 w-full">
@@ -30,7 +39,12 @@ const AddFood = ({ meal, handleSearch }: Props) => {
           ref={foodSearchInput}
           onKeyDownCapture={async (e) => await handleTyping(e)}
         />
-        <button onClick={() => handleSearch(foodSearchInput.current?.value)}>
+        <button
+          onClick={() => {
+            if (foodSearchInput.current)
+              setSearchTerm(foodSearchInput.current.value);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -45,6 +59,12 @@ const AddFood = ({ meal, handleSearch }: Props) => {
           </svg>
         </button>
       </label>
+      <div>
+        <ul>
+          {searchQuery.data &&
+            searchQuery.data.map((e) => <li key={e.fdcId}>{e.foodName}</li>)}
+        </ul>
+      </div>
     </div>
   );
 };

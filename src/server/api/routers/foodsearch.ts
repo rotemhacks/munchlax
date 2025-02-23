@@ -1,12 +1,16 @@
 import { z } from "zod";
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { env } from "../../../env.js";
 
 const usda = env.USDA_KEY;
 
 export const foodSearchRouter = createTRPCRouter({
-  searchByName: protectedProcedure
+  searchByName: publicProcedure
     .input(z.object({ searchString: z.string() }))
     .query(async ({ ctx, input }) => {
       try {
@@ -28,7 +32,7 @@ export const foodSearchRouter = createTRPCRouter({
       }
     }),
 
-  searchById: protectedProcedure
+  searchById: publicProcedure
     .input(z.object({ fdcId: z.string() }))
     .query(async ({ ctx, input }) => {
       // TODO: same here with the any

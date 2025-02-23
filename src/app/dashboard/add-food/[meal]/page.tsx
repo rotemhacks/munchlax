@@ -10,14 +10,6 @@ type Props = {
 const AddFoodPage = async ({ params }: Props) => {
   const meal = (await params).meal;
 
-  const handleSearch = async (searchString = "") => {
-    "use server";
-    if (searchString.length < 3) return;
-    const searchResults = await api.foodSearch.searchByName({
-      searchString,
-    });
-    console.log(searchResults);
-  };
 
   return (
     <div className="">
@@ -26,7 +18,7 @@ const AddFoodPage = async ({ params }: Props) => {
         <span>{meal.toLocaleUpperCase()}</span>
       </h2>
       <div className="flex-column flex lg:flex-row">
-        <AddFood meal={meal} handleSearch={handleSearch} />
+        <AddFood meal={meal} />
       </div>
     </div>
   );
