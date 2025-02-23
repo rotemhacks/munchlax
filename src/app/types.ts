@@ -23,3 +23,9 @@ export type Profile = {
   height?: number | null; // in cm
   friends: string[]; // friend user ids
 };
+
+export type BasicFoodInfo = {
+  fdcId: string;
+  foodName: string;
+  brandName: string;
+};

@@ -1,20 +1,25 @@
 import AddFood from "~/app/_components/AddFood";
 import { bebas } from "~/app/fonts";
+import type { BasicFoodInfo } from "~/app/types";
+import { api } from "~/trpc/server";
 
 type Props = {
   params: Promise<{ meal: string }>;
 };
 
-const mockdata = ["cheese", "yogurt", "more cheese"];
-
 const AddFoodPage = async ({ params }: Props) => {
   const meal = (await params).meal;
 
-  const handleSearch = (value = "") => {
+  const handleSearch = async (searchString = "") => {
     // TODO: Call backend for API. Also sign up for food API
-    if (value.length < 3) return;
-    console.log("Search launched with " + value);
-    return mockdata;
+    "use server";
+    if (searchString.length < 3) return;
+    console.log("Search launched with " + searchString);
+    const searchResults: BasicFoodInfo[] = (await api.foodSearch.searchByName({
+      searchString,
+    })) as BasicFoodInfo[];
+    console.log(searchResults);
+    return searchResults;
   };
 
   return (

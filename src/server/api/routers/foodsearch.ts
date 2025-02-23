@@ -5,7 +5,7 @@ import { env } from "../../../env.js";
 
 const usda = env.USDA_KEY;
 
-export const profileRouter = createTRPCRouter({
+export const foodSearchRouter = createTRPCRouter({
   searchByName: protectedProcedure
     .input(z.object({ searchString: z.string() }))
     .query(async ({ ctx, input }) => {

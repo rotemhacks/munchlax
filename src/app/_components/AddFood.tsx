@@ -5,10 +5,11 @@ import addicon from "../../../public/images/addicon.svg";
 import { useRef, useState } from "react";
 import { bebas } from "../fonts";
 import debounce from "~/helpers/debounce";
+import type { BasicFoodInfo } from "../types";
 
 type Props = {
   meal: string;
-  handleSearch: (value?: string) => string[] | undefined;
+  handleSearch: (searchString?: string) => Promise<BasicFoodInfo[] | undefined>;
 };
 
 const AddFood = ({ meal, handleSearch }: Props) => {
@@ -33,7 +34,7 @@ const AddFood = ({ meal, handleSearch }: Props) => {
           className="grow"
           placeholder="Search for a food"
           ref={foodSearchInput}
-          onKeyDownCapture={(e) => handleTyping(e)}
+          onKeyDownCapture={async (e) => await handleTyping(e)}
         />
         <button onClick={() => handleSearch(foodSearchInput.current?.value)}>
           <svg
