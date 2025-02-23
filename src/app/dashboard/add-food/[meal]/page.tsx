@@ -11,15 +11,12 @@ const AddFoodPage = async ({ params }: Props) => {
   const meal = (await params).meal;
 
   const handleSearch = async (searchString = "") => {
-    // TODO: Call backend for API. Also sign up for food API
     "use server";
     if (searchString.length < 3) return;
-    console.log("Search launched with " + searchString);
-    const searchResults: BasicFoodInfo[] = (await api.foodSearch.searchByName({
+    const searchResults = await api.foodSearch.searchByName({
       searchString,
-    })) as BasicFoodInfo[];
+    });
     console.log(searchResults);
-    return searchResults;
   };
 
   return (

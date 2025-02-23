@@ -2,23 +2,17 @@
 
 import Image from "next/image";
 import addicon from "../../../public/images/addicon.svg";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { bebas } from "../fonts";
 import debounce from "~/helpers/debounce";
 import type { BasicFoodInfo } from "../types";
 
 type Props = {
   meal: string;
-  handleSearch: (searchString?: string) => Promise<BasicFoodInfo[] | undefined>;
+  handleSearch: (searchString?: string) => void;
 };
 
 const AddFood = ({ meal, handleSearch }: Props) => {
-  const [foodInfo, setFoodInfo] = useState({
-    meal,
-    foodName: "",
-    serving: 0,
-    servingUnit: "",
-  });
   const foodSearchInput = useRef<HTMLInputElement>(null);
 
   const handleTyping = debounce(

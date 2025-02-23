@@ -27,5 +27,5 @@ export type Profile = {
 export type BasicFoodInfo = {
   fdcId: string;
   foodName: string;
-  brandName: string;
+  brandName: string | undefined;
 };
