@@ -5,7 +5,6 @@ import addicon from "../../../public/images/addicon.svg";
 import { useRef, useState } from "react";
 import { bebas } from "../fonts";
 import debounce from "~/helpers/debounce";
-import type { BasicFoodInfo } from "../types";
 import { api } from "~/trpc/react";
 
 type Props = {
@@ -26,7 +25,6 @@ const AddFood = ({ meal }: Props) => {
 
   const handleTyping = debounce(() => {
     if (foodSearchInput.current) setSearchTerm(foodSearchInput.current.value);
-    console.log(searchTerm);
   }, 500);
 
   return (
