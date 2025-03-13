@@ -3,9 +3,10 @@
 import Image from "next/image";
 import addicon from "../../../public/images/addicon.svg";
 import { useRef, useState } from "react";
-import { bebas } from "../fonts";
+import { bebas, roboflexlight } from "../fonts";
 import debounce from "~/helpers/debounce";
 import { api } from "~/trpc/react";
+import { capitalizeEachWord, capitalizeFirstLetter } from "~/helpers/utils";
 
 type Props = {
   meal: string;
@@ -25,11 +26,11 @@ const AddFood = ({ meal }: Props) => {
 
   const handleTyping = debounce(() => {
     if (foodSearchInput.current) setSearchTerm(foodSearchInput.current.value);
-  }, 500);
+  }, 700);
 
   return (
-    <div className="mt-10 w-full">
-      <label className="input input-bordered mt-3 flex w-full items-center gap-2">
+    <div className="m-auto mt-5 lg:w-full">
+      <label className="input input-bordered flex w-full items-center gap-2">
         <input
           type="text"
           className="grow"
@@ -57,11 +58,25 @@ const AddFood = ({ meal }: Props) => {
           </svg>
         </button>
       </label>
-      <div>
-        <ul>
-          {searchQuery.data &&
-            searchQuery.data.map((e) => <li key={e.fdcId}>{e.foodName}</li>)}
-        </ul>
+      <div className="mt-5 flex flex-col gap-5 lg:flex-row">
+        <table className="table order-2 lg:order-1">
+          <tbody>
+            {searchQuery.data?.map((e) => (
+              <tr key={e.fdcId} className="hover">
+                <td className="text-start">
+                  <span className="text-lg font-medium">
+                    {capitalizeFirstLetter(e.foodName)}
+                  </span>
+                  <br />
+                  <span className={`${roboflexlight.className}`}>
+                    {capitalizeEachWord(e.brandName)}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="order-1 w-full lg:order-2">box here</div>
       </div>
     </div>
   );

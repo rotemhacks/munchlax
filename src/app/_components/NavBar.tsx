@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { bebas } from "../fonts";
 import defaultav from "../../../public/images/defaultav.svg";
-import type { Profile, User } from "../types";
+import type { User } from "../types";
 
 type Props = {
   user?: User;
@@ -28,7 +28,7 @@ const NavBar = async ({ user }: Props) => {
                 src={user?.image ? user.image : defaultav}
                 width="40"
                 height="40"
-                alt="Default avatar"
+                alt="User avatar"
               />
             </div>
           </div>

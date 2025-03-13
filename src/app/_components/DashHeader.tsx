@@ -18,7 +18,7 @@ const DashHeader = ({ user, profile }: Props) => {
           <Image
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             src={user?.image ? user.image : defaultav}
-            alt="default avatar"
+            alt="User avatar"
             width={224}
             height={224}
           />
