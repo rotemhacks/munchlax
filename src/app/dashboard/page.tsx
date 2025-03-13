@@ -42,12 +42,12 @@ const Dashboard = async () => {
   }
 
   return (
-    <div className="max-w-screen-xl">
+    <div className="max-w-(--breakpoint-xl)">
       <DashHeader user={session?.user} />
       <div className="mt-10 flex flex-col items-center lg:mt-20 lg:flex-row lg:items-start lg:gap-3">
         <DashTable data={mockdata} />
         <div className="divider mx-auto w-3/4 lg:hidden" />
-        <div className="flex w-3/4 flex-grow flex-col gap-3 lg:w-auto">
+        <div className="flex w-3/4 grow flex-col gap-3 lg:w-auto">
           <WaterTracker />
           <NoteEditor />
         </div>

@@ -24,7 +24,7 @@ const DashTable = ({ data }: Props) => {
         <table className="table">
           <thead>
             <tr
-              className={`${bebas.className} flex-grow border-none bg-primary text-xl text-primary-content`}
+              className={`${bebas.className} grow border-none bg-primary text-xl text-primary-content`}
             >
               <th className="rounded-l-3xl">Food</th>
               <th className="rounded-r-3xl lg:rounded-none">Calories</th>
@@ -104,7 +104,7 @@ const DashTable = ({ data }: Props) => {
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            className="menu dropdown-content menu-sm z-1 mt-3 w-52 rounded-box bg-base-100 p-2 shadow-sm"
           >
             <li>
               <Link href="dashboard/add-food/breakfast">Breakfast</Link>

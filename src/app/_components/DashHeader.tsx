@@ -43,7 +43,7 @@ const DashHeader = ({ user, profile }: Props) => {
           </span>
         </p>
       </div>
-      <div className="hidden lg:flex lg:flex-grow" />
+      <div className="hidden lg:flex lg:grow" />
       {/* TODO: Pass daily entry calories only */}
       <CalorieDash profileId={profile?.id} />
     </section>
