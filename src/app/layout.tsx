@@ -15,7 +15,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${roboflexlight.className}`}>
+    <html lang="en" className={`${roboflexlight.className}`} data-theme="light">
       <body>
         <TRPCReactProvider>{children}</TRPCReactProvider>
       </body>
