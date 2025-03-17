@@ -15,10 +15,9 @@ const NavBar = async ({ user }: Props) => {
       >
         Munchlax
       </h1>
-      <div className="bg-primary my-auto w-full flex-row-reverse items-center rounded-3xl px-3">
+      <div className="bg-primary my-auto flex w-full items-center justify-end gap-2 rounded-3xl px-3">
         <label className="toggle text-base-content">
           <input type="checkbox" value="night" className="theme-controller" />
-
           <svg
             aria-label="sun"
             xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +58,7 @@ const NavBar = async ({ user }: Props) => {
             </g>
           </svg>
         </label>
+
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
