@@ -15,6 +15,7 @@ type Props = {
 const AddFood = ({ meal }: Props) => {
   const foodSearchInput = useRef<HTMLInputElement>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFood, setSelectedFood] = useState("");
   const searchQuery = api.foodSearch.searchByName.useQuery(
     {
       searchString: searchTerm,
@@ -23,10 +24,19 @@ const AddFood = ({ meal }: Props) => {
       enabled: searchTerm.length >= 3,
     },
   );
+  const foodQuery = api.foodSearch.searchById.useQuery(
+    { fdcId: selectedFood },
+    { enabled: !!selectedFood },
+  );
 
   const handleTyping = debounce(() => {
     if (foodSearchInput.current) setSearchTerm(foodSearchInput.current.value);
   }, 700);
+
+  const handleFoodSelection = (fdcId: number) => {
+    // run a search for details using the fdcId. Mutation? Query?
+    setSelectedFood(fdcId.toString());
+  };
 
   return (
     <div className="m-auto mt-5 lg:w-full">
@@ -59,10 +69,14 @@ const AddFood = ({ meal }: Props) => {
         </button>
       </label>
       <div className="mt-5 flex flex-col gap-5 lg:flex-row">
-        <table className="table order-2 lg:order-1">
+        <table className="order-2 table lg:order-1">
           <tbody>
             {searchQuery.data?.map((e) => (
-              <tr key={e.fdcId} className="hover">
+              <tr
+                key={e.fdcId}
+                className="cursor-pointer hover:bg-neutral-200"
+                onClick={() => handleFoodSelection(e.fdcId)}
+              >
                 <td className="text-start">
                   <span className="text-lg font-medium">
                     {capitalizeFirstLetter(e.foodName)}

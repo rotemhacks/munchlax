@@ -9,15 +9,30 @@ import { env } from "../../../env.js";
 
 const usda = env.USDA_KEY;
 
-const FoodSchema = z.object({
+const FoodsByNameSchema = z.object({
   fdcId: z.number(),
   description: z.string(),
   brandName: z.string().optional(),
 });
 
+const FoodsByIdSchema = z.object({
+  fdcId: z.number(),
+  description: z.string(),
+  foodNutrients: z
+    .object({
+      amount: z.number(),
+      nutrient: z.object({
+        number: z.string(),
+        name: z.string(),
+        unitName: z.string(),
+      }),
+    })
+    .array(),
+});
+
 // If the API returns a larger structure but you're only interested in the `foods` array:
-const ResponseSchema = z.object({
-  foods: z.array(FoodSchema),
+const FoodsResponseSchema = z.object({
+  foods: z.array(FoodsByNameSchema),
 });
 
 export const foodSearchRouter = createTRPCRouter({
@@ -30,7 +45,7 @@ export const foodSearchRouter = createTRPCRouter({
         );
         if (!res.ok) throw new Error("Failed to fetch data");
         const data: unknown = await res.json();
-        const parsed = ResponseSchema.parse(data);
+        const parsed = FoodsResponseSchema.parse(data);
         const results = parsed.foods.map((food) => ({
           fdcId: food.fdcId,
           foodName: food.description,
@@ -45,11 +60,22 @@ export const foodSearchRouter = createTRPCRouter({
   searchById: publicProcedure
     .input(z.object({ fdcId: z.string() }))
     .query(async ({ ctx, input }) => {
-      // TODO: same here with the any
+      // change the nutrients query param for more nutrients (or remove for all)
       const res = await fetch(
-        `https://api.nal.usda.gov/fdc/v1/food/${input.fdcId}?api_key=${usda}`,
+        `https://api.nal.usda.gov/fdc/v1/food/${input.fdcId}?nutrients=268,205,203,204&api_key=${usda}`,
       );
       const data: unknown = await res.json();
-      return data;
+      const parsed = FoodsByIdSchema.parse(data);
+      const result = {
+        fdcId: parsed.fdcId,
+        description: parsed.description,
+        foodNutrients: parsed.foodNutrients.map((nutrient) => ({
+          amount: nutrient.amount,
+          number: nutrient.nutrient.number,
+          name: nutrient.nutrient.name,
+          unit: nutrient.nutrient.unitName,
+        })),
+      };
+      return result;
     }),
 });
